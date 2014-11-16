@@ -1,0 +1,40 @@
+{
+  "name": "noflo-mqtt",
+  "description": "NoFlo MQTT components",
+  "version": "0.1.0",
+  "author": {
+    "name": "Henri Bergius",
+    "email": "henri.bergius@iki.fi"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/noflo/noflo-mqtt.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "undefined/blob/master/LICENSE-MIT"
+    }
+  ],
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {
+    "noflo": "~0.5.0",
+    "mqtt": "~0.3.13"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-coffeelint": "~0.0.10",
+    "grunt-cafe-mocha": "~0.1.12",
+    "chai": "~1.9.0",
+    "mocha": "~1.21.0",
+    "grunt-noflo-manifest": "~0.1.11"
+  },
+  "keywords": [],
+  "noflo": {
+    "components": {
+      "SendMessage": "components/SendMessage.coffee"
+    }
+  }
+}
