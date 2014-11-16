@@ -20,6 +20,14 @@ exports.getComponent = ->
     datatype: 'number'
     description: 'Port of the MQTT broker'
     required: no
+  c.inPorts.add 'qos',
+    datatype: 'integer'
+    description: 'Quality of Service flag'
+    required: no
+  c.inPorts.add 'retain',
+    datatype: 'boolean'
+    description: 'Whether to retain the latest message on broker'
+    required: no
   c.outPorts.add 'out',
     datatype: 'string'
   c.outPorts.add 'error',
@@ -43,7 +51,11 @@ exports.getComponent = ->
     unless typeof data.message is 'string'
       data.message = JSON.stringify data.message
 
-    c.client.publish data.topic, data.message
+    qos = c.params.qos or 0
+    retain = c.params.retain or false
+    c.client.publish data.topic, data.message,
+      qos: qos
+      retain: retain
     out.beginGroup data.topic
     out.send data.message
     out.endGroup()
