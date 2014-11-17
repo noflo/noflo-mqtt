@@ -36,7 +36,7 @@ exports.getComponent = ->
   c.client = null
   noflo.helpers.WirePattern c,
     in: ['topic', 'message']
-    params: ['broker', 'port']
+    params: ['broker', 'port', 'qos', 'retain']
     forwardGroups: true
   , (data, groups, out) ->
     unless c.client
