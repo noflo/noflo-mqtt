@@ -83,3 +83,9 @@ exports.getComponent = ->
         c.client = null
       return
     sendMessage input, output
+
+  c.shutdown = ->
+    c.client.end() if c.client
+    c.client = null
+
+  c
