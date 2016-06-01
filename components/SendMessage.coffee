@@ -45,7 +45,6 @@ exports.getComponent = ->
     message: ['out', 'error']
 
   sendMessage = (input, output) ->
-    return unless c.client
     topic = input.get 'topic'
     console.log 'TOPIC', topic
     return unless topic.type is 'data'
