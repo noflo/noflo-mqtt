@@ -66,7 +66,7 @@ exports.getComponent = ->
         protocol: 'mqtt'
         slashes: true
       c.client = mqtt.connect brokerUrl
-      c.client.on 'connect', ->
+      c.client.once 'connect', ->
         sendMessage data, out, callback
       c.client.on 'error', (e) ->
         c.error e
