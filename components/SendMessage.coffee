@@ -45,11 +45,14 @@ exports.getComponent = ->
     message: ['out', 'error']
 
   sendMessage = (input, output) ->
+    # First we want a data packet for topic
     topic = input.get 'topic'
     until topic.type is 'data'
       return unless input.has 'topic'
       topic = input.get 'topic'
-    return unless topic.type is 'data'
+    # Now we have a data packet for topic, we can read from message
+    # Since message is a forwardBrackets port it won't return bracket
+    # packets.
     message = input.getData 'message'
     unless typeof message is 'string'
       message = JSON.stringify message
