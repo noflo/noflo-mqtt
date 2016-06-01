@@ -10,28 +10,23 @@
     "type": "git",
     "url": "git://github.com/noflo/noflo-mqtt.git"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "undefined/blob/master/LICENSE-MIT"
-    }
-  ],
+  "license": "MIT",
   "scripts": {
     "test": "grunt test"
   },
   "dependencies": {
-    "noflo": "0.5.22",
-    "mqtt": "0.3.13"
+    "noflo": "~0.5.22",
+    "mqtt": "~0.3.13"
   },
   "devDependencies": {
-    "grunt": "0.4.5",
-    "grunt-coffeelint": "0.0.15",
-    "grunt-cafe-mocha": "0.1.13",
-    "chai": "3.5.0",
-    "mocha": "2.5.3",
-    "grunt-noflo-manifest": "0.1.11"
+    "grunt": "^0.4.5",
+    "grunt-coffeelint": "^0.0.15",
+    "grunt-cafe-mocha": "^0.1.13",
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3",
+    "grunt-noflo-manifest": "^0.1.11"
   },
-  "keywords": [],
+  "keywords": ["noflo"],
   "noflo": {
     "components": {
       "SendMessage": "components/SendMessage.coffee"
