@@ -4,3 +4,11 @@ node_js:
 before_script:
 - npm install -g grunt-cli
 - sudo apt-get install mosquitto
+deploy:
+  provider: npm
+  email: henri.bergius@iki.fi
+  api_key:
+    secure: g9y5uIqS2qp9kVlSMcC04BMXoQnFBvnY+vUlvcsm3jockZw8LUBQw9OUCQg59KkzMKx4KWZH1Ir6JY5bfLcRVSJmqJB88DPbQl6qwrPyl5Nxm7bfIERTz/xuUQUovaJa04wanp6+dwzl7S/27mz+IwLQXSWhjj/POzm6CLy9V8M=
+  on:
+    tags: true
+    repo: noflo/noflo-mqtt
