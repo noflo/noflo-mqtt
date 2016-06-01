@@ -67,6 +67,7 @@ exports.getComponent = ->
   c.process (input, output) ->
     return unless input.has 'topic', 'message'
     unless c.client
+      console.log 'INIT CLIENT'
       return unless input.has 'broker'
       broker = input.getData 'broker'
       port = if input.has('port') then input.getData('port') else 1883
@@ -77,6 +78,7 @@ exports.getComponent = ->
         slashes: true
       c.client = mqtt.connect brokerUrl
       c.client.once 'connect', ->
+        console.log 'SEND on CONNECT'
         sendMessage input, output
       c.client.on 'error', (e) ->
         c.error e
@@ -84,6 +86,7 @@ exports.getComponent = ->
       c.client.on 'close', ->
         c.client = null
       return
+    console.log 'SEND direct'
     sendMessage input, output
 
   c.shutdown = ->
