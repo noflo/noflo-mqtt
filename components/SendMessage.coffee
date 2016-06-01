@@ -43,6 +43,7 @@ exports.getComponent = ->
     message: ['out', 'error']
 
   sendMessage = (input, output) ->
+    return unless c.client
     message = input.getData 'message'
     topic = input.getData 'topic'
     unless typeof message is 'string'
@@ -70,6 +71,7 @@ exports.getComponent = ->
         port: port
         protocol: 'mqtt'
         slashes: true
+      c.client = mqtt.connect brokerUrl
       c.client.once 'connect', ->
         sendMessage input, output
       c.client.on 'error', (e) ->
