@@ -10,11 +10,13 @@ module.exports = ->
           'package.json': ['graphs/*', 'components/*']
 
     # BDD tests on Node.js
-    cafemocha:
+    mochaTest:
       nodejs:
         src: ['spec/*.coffee']
         options:
           reporter: 'spec'
+          require: 'coffee-script/register'
+          grep: process.env.TESTS
 
     # Coding standards
     coffeelint:
@@ -27,7 +29,7 @@ module.exports = ->
   @loadNpmTasks 'grunt-noflo-manifest'
 
   # Grunt plugins used for testing
-  @loadNpmTasks 'grunt-cafe-mocha'
+  @loadNpmTasks 'grunt-mocha-test'
   @loadNpmTasks 'grunt-coffeelint'
 
   # Our local tasks
@@ -38,6 +40,6 @@ module.exports = ->
   @registerTask 'test', 'Build NoFlo and run automated tests', (target = 'all') =>
     @task.run 'coffeelint'
     @task.run 'noflo_manifest'
-    @task.run 'cafemocha'
+    @task.run 'mochaTest'
 
   @registerTask 'default', ['test']
