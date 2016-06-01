@@ -47,8 +47,10 @@ exports.getComponent = ->
   sendMessage = (input, output) ->
     return unless c.client
     topic = input.get 'topic'
+    console.log 'TOPIC', topic
     return unless topic.type is 'data'
     message = input.getData 'message'
+    console.log 'MESSAGE', message, topic
     unless typeof message is 'string'
       message = JSON.stringify message
 
