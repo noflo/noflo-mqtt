@@ -36,25 +36,7 @@ exports.getComponent = ->
 
   c.client = null
 
-  noflo.helpers.WirePattern c,
-    in: ['topic', 'message']
-    params: ['broker', 'port', 'qos', 'retain']
-    forwardGroups: true
-  , (data, groups, out) ->
-    unless c.client
-      port = c.params.port or 1883
-      brokerUrl = url.format
-        hostname: c.params.broker
-        port: c.params.port
-        protocol: 'mqtt'
-        slashes: true
-      c.client = mqtt.connect brokerUrl
-      c.client.on 'error', (e) ->
-        c.error e
-        c.client = null
-      c.client.on 'disconnect', ->
-        c.client = null
-
+  sendMessage = (data, out, callback) ->
     unless typeof data.message is 'string'
       data.message = JSON.stringify data.message
 
@@ -63,6 +45,33 @@ exports.getComponent = ->
     c.client.publish data.topic, data.message,
       qos: qos
       retain: retain
-    out.beginGroup data.topic
-    out.send data.message
-    out.endGroup()
+    , (err) ->
+      return callback err if err
+      out.beginGroup data.topic
+      out.send data.message
+      out.endGroup()
+      do callback
+
+  noflo.helpers.WirePattern c,
+    in: ['topic', 'message']
+    params: ['broker', 'port', 'qos', 'retain']
+    forwardGroups: true
+    async: true
+  , (data, groups, out, callback) ->
+    unless c.client
+      port = c.params.port or 1883
+      brokerUrl = url.format
+        hostname: c.params.broker
+        port: c.params.port
+        protocol: 'mqtt'
+        slashes: true
+      c.client = mqtt.connect brokerUrl
+      c.client.on 'connect', ->
+        sendMessage data, out, callback
+      c.client.on 'error', (e) ->
+        c.error e
+        c.client = null
+      c.client.on 'close', ->
+        c.client = null
+      return
+    sendMessage data, out, callback

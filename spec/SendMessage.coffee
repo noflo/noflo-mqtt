@@ -27,11 +27,13 @@ describe 'SendMessage component', ->
   describe 'sending message to a topic', ->
     it 'should produce the message', (done) ->
       client = mqtt.connect brokerUrl
-      client.subscribe 'noflo'
-      client.on 'message', (t, m) ->
-        chai.expect(t).to.equal 'noflo'
-        chai.expect(m).to.equal 'hello world'
-        done()
-      broker.send 'localhost'
-      topic.send 'noflo'
-      message.send 'hello world'
+      client.on 'connect', ->
+        client.subscribe 'noflo'
+        client.on 'message', (t, m) ->
+          chai.expect(t).to.equal 'noflo'
+          chai.expect(m).to.equal 'hello world'
+          client.end done
+        broker.send 'localhost'
+        topic.send 'noflo'
+        message.send 'hello world'
+      client.on 'error', done
