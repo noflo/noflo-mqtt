@@ -46,15 +46,16 @@ exports.getComponent = ->
 
   sendMessage = (input, output) ->
     return unless c.client
+    topic = input.get 'topic'
+    return unless topic.type is 'data'
     message = input.getData 'message'
-    topic = input.getData 'topic'
     unless typeof message is 'string'
       message = JSON.stringify message
 
     qos = if input.has('qos') then input.getData('qos') else 0
     retain = if input.has('retain') then input.getData('retain') else false
-    console.log topic, message, qos, retain
-    c.client.publish topic, message,
+    console.log topic.data, message, qos, retain
+    c.client.publish topic.data, message,
       qos: qos
       retain: retain
     , (err) ->
