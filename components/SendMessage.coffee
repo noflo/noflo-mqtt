@@ -2,6 +2,8 @@ noflo = require 'noflo'
 mqtt = require 'mqtt'
 url = require 'url'
 
+# @runtime noflo-nodejs
+
 exports.getComponent = ->
   c = new noflo.Component
   c.description = 'Send a message to a MQTT topic'
