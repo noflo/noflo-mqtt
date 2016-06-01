@@ -43,4 +43,6 @@ describe 'SendMessage component', ->
           client.end done
         broker.send 'localhost'
         topic.send 'noflo'
+        topic.disconnect()
         message.send 'hello world'
+        message.disconnect()
