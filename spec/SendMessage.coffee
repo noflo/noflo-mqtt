@@ -30,7 +30,10 @@ describe 'SendMessage component', ->
   describe 'sending message to a topic', ->
     it 'should produce the message', (done) ->
       client = mqtt.connect brokerUrl
+      console.log "SPEC connecting to #{brokerUrl}"
       err.on 'data', (err) ->
+        done err
+      client.on 'error', (err) ->
         done err
       client.on 'connect', ->
         console.log 'SPEC connected'
@@ -43,4 +46,3 @@ describe 'SendMessage component', ->
         topic.send 'noflo'
         message.send 'hello world'
         console.log 'SPEC sent'
-      client.on 'error', done
