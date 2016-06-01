@@ -1,5 +1,6 @@
 noflo = require 'noflo'
 mqtt = require 'mqtt'
+url = require 'url'
 
 exports.getComponent = ->
   c = new noflo.Component
