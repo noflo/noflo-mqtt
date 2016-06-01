@@ -14,6 +14,7 @@ describe 'SendMessage component', ->
     port: 1883
     protocol: 'mqtt'
     slashes: true
+  err = null
 
   beforeEach ->
     c = SendMessage.getComponent()
@@ -23,11 +24,16 @@ describe 'SendMessage component', ->
     c.inPorts.topic.attach topic
     c.inPorts.message.attach message
     c.inPorts.broker.attach broker
+    err = noflo.internalSocket.createSocket()
+    c.outPorts.err.attach err
 
   describe 'sending message to a topic', ->
     it 'should produce the message', (done) ->
       client = mqtt.connect brokerUrl
+      err.on 'data', (err) ->
+        done err
       client.on 'connect', ->
+        console.log 'SPEC connected'
         client.subscribe 'noflo'
         client.on 'message', (t, m) ->
           chai.expect(t).to.equal 'noflo'
@@ -36,4 +42,5 @@ describe 'SendMessage component', ->
         broker.send 'localhost'
         topic.send 'noflo'
         message.send 'hello world'
+        console.log 'SPEC sent'
       client.on 'error', done
