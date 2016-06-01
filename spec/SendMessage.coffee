@@ -29,6 +29,7 @@ describe 'SendMessage component', ->
 
   describe 'sending message to a topic', ->
     it 'should produce the message', (done) ->
+      @timeout 10000
       client = mqtt.connect brokerUrl
       console.log "SPEC connecting to #{brokerUrl}"
       err.on 'data', (err) ->
