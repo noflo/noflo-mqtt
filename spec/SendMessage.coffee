@@ -31,19 +31,16 @@ describe 'SendMessage component', ->
     it 'should produce the message', (done) ->
       @timeout 10000
       client = mqtt.connect brokerUrl
-      console.log "SPEC connecting to #{brokerUrl}"
       err.on 'data', (err) ->
         done err
       client.on 'error', (err) ->
         done err
       client.on 'connect', ->
-        console.log 'SPEC connected'
         client.subscribe 'noflo'
         client.on 'message', (t, m) ->
           chai.expect(t).to.equal 'noflo'
-          chai.expect(m).to.equal 'hello world'
+          chai.expect(m.toString()).to.equal 'hello world'
           client.end done
         broker.send 'localhost'
         topic.send 'noflo'
         message.send 'hello world'
-        console.log 'SPEC sent'

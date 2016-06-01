@@ -37,7 +37,6 @@ exports.getComponent = ->
   c.client = null
 
   sendMessage = (data, out, callback) ->
-    console.log 'COMPONENT send', data
     unless typeof data.message is 'string'
       data.message = JSON.stringify data.message
 
@@ -59,7 +58,6 @@ exports.getComponent = ->
     forwardGroups: true
     async: true
   , (data, groups, out, callback) ->
-    console.log 'COMPONENT recv'
     unless c.client
       port = c.params.port or 1883
       brokerUrl = url.format
@@ -69,7 +67,6 @@ exports.getComponent = ->
         slashes: true
       c.client = mqtt.connect brokerUrl
       c.client.once 'connect', ->
-        console.log 'COMPONENT conn'
         sendMessage data, out, callback
       c.client.on 'error', (e) ->
         c.error e
