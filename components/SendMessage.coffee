@@ -34,6 +34,7 @@ exports.getComponent = ->
     datatype: 'object'
 
   c.client = null
+
   noflo.helpers.WirePattern c,
     in: ['topic', 'message']
     params: ['broker', 'port', 'qos', 'retain']
@@ -41,7 +42,12 @@ exports.getComponent = ->
   , (data, groups, out) ->
     unless c.client
       port = c.params.port or 1883
-      c.client = mqtt.createClient port, c.params.broker
+      brokerUrl = url.format
+        hostname: c.params.broker
+        port: c.params.port
+        protocol: 'mqtt'
+        slashes: true
+      c.client = mqtt.connect brokerUrl
       c.client.on 'error', (e) ->
         c.error e
         c.client = null
@@ -59,5 +65,3 @@ exports.getComponent = ->
     out.beginGroup data.topic
     out.send data.message
     out.endGroup()
-
-  c
