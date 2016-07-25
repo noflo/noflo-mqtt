@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "noflo": "~0.7.5",
-    "mqtt": "~1.10.0"
+    "mqtt": "~1.13.0"
   },
   "devDependencies": {
     "coffee-script": "^1.10.0",
