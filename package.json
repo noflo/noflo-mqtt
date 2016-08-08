@@ -24,7 +24,7 @@
     "grunt-coffeelint": "^0.0.15",
     "grunt-mocha-test": "^0.12.7",
     "chai": "^3.5.0",
-    "mocha": "^2.5.3",
+    "mocha": "^3.0.2",
     "grunt-noflo-manifest": "^0.1.11"
   },
   "keywords": [
