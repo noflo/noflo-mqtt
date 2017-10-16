@@ -15,7 +15,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "noflo": "0.x >= 0.7",
+    "noflo": "0.x >= 0.8",
     "mqtt": "^2.2.0"
   },
   "devDependencies": {
@@ -24,15 +24,9 @@
     "grunt-coffeelint": "^0.0.16",
     "grunt-mocha-test": "^0.13.2",
     "chai": "^4.0.0",
-    "mocha": "^4.0.0",
-    "grunt-noflo-manifest": "^0.1.12"
+    "mocha": "^4.0.0"
   },
   "keywords": [
     "noflo"
-  ],
-  "noflo": {
-    "components": {
-      "SendMessage": "components/SendMessage.coffee"
-    }
-  }
+  ]
 }

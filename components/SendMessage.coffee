@@ -41,6 +41,11 @@ exports.getComponent = ->
     datatype: 'object'
 
   c.client = null
+  c.tearDown = (callback) ->
+    c.client.end() if c.client
+    c.client = null
+    do callback
+
   c.forwardBrackets =
     message: ['out', 'error']
 
@@ -48,7 +53,7 @@ exports.getComponent = ->
     # First we want a data packet for topic
     topic = input.get 'topic'
     until topic.type is 'data'
-      return unless input.has 'topic'
+      return unless input.hasData 'topic'
       topic = input.get 'topic'
     # Now we have a data packet for topic, we can read from message
     # Since message is a forwardBrackets port it won't return bracket
@@ -57,8 +62,8 @@ exports.getComponent = ->
     unless typeof message is 'string'
       message = JSON.stringify message
 
-    qos = if input.has('qos') then input.getData('qos') else 0
-    retain = if input.has('retain') then input.getData('retain') else false
+    qos = if input.hasData('qos') then input.getData('qos') else 0
+    retain = if input.hasData('retain') then input.getData('retain') else false
     c.client.publish topic.data, message,
       qos: qos
       retain: retain
@@ -68,11 +73,11 @@ exports.getComponent = ->
         out: message
 
   c.process (input, output) ->
-    return unless input.has 'topic', 'message'
+    return unless input.hasData 'topic', 'message'
     unless c.client
-      return unless input.has 'broker'
+      return unless input.hasData 'broker'
       broker = input.getData 'broker'
-      port = if input.has('port') then input.getData('port') else 1883
+      port = if input.hasData('port') then input.getData('port') else 1883
       brokerUrl = url.format
         hostname: broker
         port: port
@@ -88,9 +93,3 @@ exports.getComponent = ->
         c.client = null
       return
     sendMessage input, output
-
-  c.shutdown = ->
-    c.client.end() if c.client
-    c.client = null
-
-  c
