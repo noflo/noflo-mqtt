@@ -41,6 +41,11 @@ exports.getComponent = ->
     datatype: 'object'
 
   c.client = null
+  c.tearDown = (callback) ->
+    c.client.end() if c.client
+    c.client = null
+    do callback
+
   c.forwardBrackets =
     message: ['out', 'error']
 
@@ -88,9 +93,3 @@ exports.getComponent = ->
         c.client = null
       return
     sendMessage input, output
-
-  c.shutdown = ->
-    c.client.end() if c.client
-    c.client = null
-
-  c
