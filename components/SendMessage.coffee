@@ -57,7 +57,7 @@ exports.getComponent = ->
 
     qos = if input.hasData('qos') then input.getData('qos') else 0
     retain = if input.hasData('retain') then input.getData('retain') else false
-    c.client.publish topic.data, message,
+    c.client.publish topic, message,
       qos: qos
       retain: retain
     , (err) ->
