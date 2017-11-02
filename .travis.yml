@@ -14,7 +14,6 @@ install:
 - npm install
 before_script:
 - mosquitto -d
-- npm install -g grunt-cli
 deploy:
   provider: npm
   email: henri.bergius@iki.fi
