@@ -26,6 +26,8 @@ describe 'SendMessage component', ->
     c.inPorts.broker.attach broker
     err = noflo.internalSocket.createSocket()
     c.outPorts.error.attach err
+  after (done) ->
+    c.shutdown done
 
   describe 'sending message to a topic', ->
     it 'should produce the message', (done) ->
