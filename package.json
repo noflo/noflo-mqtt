@@ -1,7 +1,7 @@
 {
   "name": "noflo-mqtt",
   "description": "NoFlo MQTT components",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "author": {
     "name": "Henri Bergius",
     "email": "henri.bergius@iki.fi"
