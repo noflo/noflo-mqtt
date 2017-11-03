@@ -16,7 +16,7 @@
     "test": "mocha --require coffeescript/register -R spec -t 2000 spec/*.coffee"
   },
   "dependencies": {
-    "noflo": "0.x >= 0.8",
+    "noflo": "^1.0.0",
     "mqtt": "^2.2.0"
   },
   "devDependencies": {
